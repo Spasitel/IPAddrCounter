@@ -2,6 +2,7 @@ package ru.spasitel;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
@@ -144,7 +145,48 @@ public class Utils {
         Main.checkMemory();
     }
 
+    public static void oldCountIpInFile() {
+        long startTime = System.currentTimeMillis();
+        AtomicBitArray set = new AtomicBitArray(256L * 256 * 256 * 256);
+
+        String filePath = Main.IP_ADDRESSES;
+        AtomicLong countIp = new AtomicLong();
+        AtomicLong countIpDuplicates = new AtomicLong();
+        AtomicLong count = new AtomicLong();
+        try (Stream<String> stream = Files.lines(Paths.get(filePath))) {
+            stream.parallel().forEach(line -> {
+                Main.processLine(line, set, countIp, countIpDuplicates, count, startTime);
+            });
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("---------------------------- " + count);
+        System.out.println("count: " + countIp + " duplicates: " + countIpDuplicates);
+        Main.printTime(startTime);
+        Main.checkMemory();
+
+    }
+
+    public static void fileChannel(){
+        Path path = Path.of(Main.IP_ADDRESSES);
+        int bufferSize = 128 * 1024; // 128 КБ
+        byte[] buffer = new byte[bufferSize];
+
+        try (InputStream in = Files.newInputStream(path);
+             BufferedInputStream bis = new BufferedInputStream(in, bufferSize)) {
+
+            int read;
+            while ((read = bis.read(buffer)) != -1) {
+                // process(buffer, read);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
-        inputStreamBytes();
+        fileChannel();
     }
 }
