@@ -145,7 +145,7 @@ public class Main {
         );
     }
 
-    private static void log(String str) {
+    static void log(String str) {
         System.out.println(str);
     }
 }

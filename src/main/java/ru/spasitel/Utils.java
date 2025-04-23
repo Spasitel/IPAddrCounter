@@ -2,7 +2,6 @@ package ru.spasitel;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
@@ -169,24 +168,7 @@ public class Utils {
 
     }
 
-    public static void fileChannel(){
-        Path path = Path.of(Main.IP_ADDRESSES);
-        int bufferSize = 128 * 1024; // 128 КБ
-        byte[] buffer = new byte[bufferSize];
-
-        try (InputStream in = Files.newInputStream(path);
-             BufferedInputStream bis = new BufferedInputStream(in, bufferSize)) {
-
-            int read;
-            while ((read = bis.read(buffer)) != -1) {
-                // process(buffer, read);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void main(String[] args) {
-        fileChannel();
+        oldCountIpInFile();
     }
 }
