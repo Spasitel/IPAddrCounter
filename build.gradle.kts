@@ -2,8 +2,8 @@ plugins {
     id("java")
 }
 
-group = "org.example"
-version = "1.0-SNAPSHOT"
+group = "org.spasitel"
+version = "1.0"
 
 repositories {
     mavenCentral()
@@ -16,4 +16,13 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    maxHeapSize = "1g"
+}
+
+tasks.jar {
+    manifest {
+        attributes(
+            "Main-Class" to "org.spasitel.Main"
+        )
+    }
 }
