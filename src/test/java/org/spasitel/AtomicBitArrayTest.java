@@ -11,9 +11,9 @@ class AtomicBitArrayTest {
         assertThrows(IllegalArgumentException.class, () -> new AtomicBitArray(-10));
         AtomicBitArray atomicBitArray = new AtomicBitArray(10);
         assertThrows(IllegalArgumentException.class, () -> atomicBitArray.getBit(-10));
-        assertThrows(IllegalArgumentException.class, () -> atomicBitArray.getBit(11));
+        assertThrows(IllegalArgumentException.class, () -> atomicBitArray.getBit(10));
         assertThrows(IllegalArgumentException.class, () -> atomicBitArray.setBitTrue(-10));
-        assertThrows(IllegalArgumentException.class, () -> atomicBitArray.setBitTrue(11));
+        assertThrows(IllegalArgumentException.class, () -> atomicBitArray.setBitTrue(10));
     }
 
     @Test

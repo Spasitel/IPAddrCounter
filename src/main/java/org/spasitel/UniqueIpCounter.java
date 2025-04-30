@@ -20,6 +20,9 @@ public class UniqueIpCounter {
     private final AtomicLong uniqueIps = new AtomicLong();
     private final AtomicLong duplicateIps = new AtomicLong();
     private final AtomicLong totalIps = new AtomicLong();
+    /**
+     * Mapping decimal digits → byte value in IP
+     */
     private final long[] digitIndexMultiplier = {
             1, 10, 100,
             256, 2560, 25600,
@@ -95,6 +98,7 @@ public class UniqueIpCounter {
 
         if (getByte(start, buffer, pos) == '\n') pos--; //file can end with \n or not
 
+        //Accumulate ip "number" reading backwards, because so easily to track digit position
         while (pos >= 0) {
             byte b = getByte(start, buffer, pos);
             switch (b) {

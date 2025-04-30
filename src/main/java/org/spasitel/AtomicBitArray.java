@@ -17,7 +17,7 @@ public class AtomicBitArray {
     }
 
     public boolean getBit(long pos) {
-        if (pos < 0 || pos > size) {
+        if (pos < 0 || pos >= size) {
             throw new IllegalArgumentException("Wrong bit position: " + pos);
         }
         int arrayPos = (int) (pos / WORD_SIZE);
@@ -31,7 +31,7 @@ public class AtomicBitArray {
      * @return {@code true} if the bit was successfully set; {@code false} if the bit was already true or if a concurrent modification occurred
      */
     public boolean setBitTrue(long pos) {
-        if (pos < 0 || pos > size) {
+        if (pos < 0 || pos >= size) {
             throw new IllegalArgumentException("Wrong bit position: " + pos);
         }
         int arrayPos = (int) (pos / WORD_SIZE);
